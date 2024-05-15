@@ -1,24 +1,55 @@
-# Template for BESSER-PEARL Organization Repositories
+# BESSER
 
-This Github template provides a collection of base files and configuration recommendations for kick-starting a new project in the BESSER-PEARL organization.
+BESSER is a [low-modeling](https://modeling-languages.com/welcome-to-the-low-modeling-revolution/) [low-code](https://modeling-languages.com/low-code-vs-model-driven/) open-source platform. BESSER (Building bEtter Smart Software fastER) is funded thanks to an [FNR Pearl grant](https://modeling-languages.com/a-smart-low-code-platform-for-smart-software-in-luxembourg-goodbye-barcelona/) led by the [Luxembourg Institute of Science and Technology](https://www.list.lu/) with the participation of the [Snt/University of Luxembourg](https://www.uni.lu/snt-en/) and open to all your contributions!
 
-## ⚒️ Using this template for your project
+The BESSER low-code platform is built on top of our Python-based personal interpretation of a "Universal Modeling Language" (yes, heavily inspired and a simplified version of the better known UML, the Unified Modeling Language) 
 
-To use this template when creating a new repository in the BESSER-PEARL GitHub organization, you have to set the `Repository template` field to `BESSER-PEARL/template`.
+**Check out the official [documentation](https://besser.readthedocs.io/en/latest/)**
 
-The new repository will use this one as a template, meaning that it will contain all the files. 
-Once the new repository is created, you can edit its files to adapt them to your needs.
+## Basic Installation
 
-## ☑️ Guidelines & Contributing
+BESSER works with Python 3.9+. We recommend creating a virtual environment (e.g. [venv](https://docs.python.org/3/tutorial/venv.html), [conda](https://docs.conda.io/en/latest/)).
 
-You will find a guided description of the steps you should follow in the [guidelines](guidelines.md) file.
+The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
-## 📓 Publishing the documentation to ReadTheDocs
+    $ pip install besser
 
-This template also provides the base files to deploy the repository documentation using [ReadTheDocs](https://docs.readthedocs.io/en/stable/index.html). In the `docs` folder you can find and edit all the Sphinx documentation sources. You can check the documentation generated from this template at the [following link](https://besser-template.readthedocs.io/en/latest/). 
+## Building From Source
 
-For more information on how to connect your repository, customize, and deploy the documentation with ReadTheDocs, you can follow [this tutorial](https://docs.readthedocs.io/en/stable/tutorial/index.html). If you do not plan to use ReadTheDocs, remove the `docs` folder and the `.readthedocs.yaml` file from your repository.
+If you prefer to obtain the full code, you can clone the git repository.
 
-## 📚 References
+    $ git clone https://github.com/BESSER-PEARL/BESSER.git
+    $ cd BESSER
 
-This project is an extended and adapted version (to the [BESSER-PEARL organization](https://github.com/organizations/BESSER-PEARL/)) of the [GitHub Best Practices Template](https://github.com/jlcanovas/gh-best-practices-template.git)
+Install *build*, then generate and install the *besser* package. Remember to replace `*.*.*` by the package version number.
+
+    $ pip install --upgrade build
+    $ python -m build
+    $ pip install dist/besser-*.*.*-py3-none-any.whl
+
+You can check the installation of the *besser* package.
+
+    $ pip list
+
+## Contributing
+
+We encourage contributions from the community and any comment is welcome!
+
+If you are interested in contributing to this project, please read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Code of Conduct
+
+At BESSER, our commitment is centered on establishing and maintaining development environments that are welcoming, inclusive, safe and free from all forms of harassment. All participants are expected to voluntarily respect and support our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Governance
+
+The development of this project follows the governance rules described in the [GOVERNANCE.md](GOVERNANCE.md) document.
+
+## Contact
+You can reach us at: [info@besser-pearl.org](mailto:info@besser-pearl-org)
+
+Website: https://besser-pearl.github.io/teampage/
+
+## License
+
+This project is licensed under the [MIT](https://mit-license.org/) license.
