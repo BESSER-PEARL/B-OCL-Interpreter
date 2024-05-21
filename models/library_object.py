@@ -89,14 +89,14 @@ library_model : DomainModel = DomainModel(name="Library model", types={library, 
                                                        constraintPageNumber,
                                                        constraintTitleCorrect,
                                                        constraintLibraryExists,
-                                                       # constraintLibrarySize,
+                                                       constraintLibrarySize,
                                                        constraintLibraryCollect,
                                                        constraintLibraryIf,
                                                        constraintLibraryElse,
-                                                       constraintLibraryElseFalse,
+                                                       # constraintLibraryElseFalse,
                                                        constraintNameOCLIsTypeOf,
                                                        constraintNameOCLIsTypeOfInt,
-                                                       constraintNameOCLIsTypeOfIntFalse
+                                                       # constraintNameOCLIsTypeOfIntFalse
                                           }
 
                                             # constraints={constraintLibrarySize}
