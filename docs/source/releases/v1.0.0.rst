@@ -1,0 +1,8 @@
+Version 0.1.0
+=============
+
+Release Notes
+------------
+* Evaluator for BOCL (BESSER Object Constraint Language)
+* Library case study including domain model, object model and OCL constraints
+* Researcher case study including domain model, object model and OCL constraints
