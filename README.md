@@ -1,35 +1,46 @@
-# BESSER
+# BESSER Object Constraint Language Interpreter
 
-BESSER is a [low-modeling](https://modeling-languages.com/welcome-to-the-low-modeling-revolution/) [low-code](https://modeling-languages.com/low-code-vs-model-driven/) open-source platform. BESSER (Building bEtter Smart Software fastER) is funded thanks to an [FNR Pearl grant](https://modeling-languages.com/a-smart-low-code-platform-for-smart-software-in-luxembourg-goodbye-barcelona/) led by the [Luxembourg Institute of Science and Technology](https://www.list.lu/) with the participation of the [Snt/University of Luxembourg](https://www.uni.lu/snt-en/) and open to all your contributions!
+**BOCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
+It is a python based implementation, that utilises parser and listener generated with the ANTLR4 grammer.
 
-The BESSER low-code platform is built on top of our Python-based personal interpretation of a "Universal Modeling Language" (yes, heavily inspired and a simplified version of the better known UML, the Unified Modeling Language) 
+**BESSER** is a `low-modeling <https://modeling-languages.com/welcome-to-the-low-modeling-revolution/>`_
+`low-code <https://modeling-languages.com/low-code-vs-model-driven/>`_ open-source platform built on top 
+of our Python-based personal interpretation of a "Universal Modeling Language"
 
-**Check out the official [documentation](https://besser.readthedocs.io/en/latest/)**
+
 
 ## Basic Installation
+We have tested BOCL with python 3.9+. We recommend creating a virtual environment (e.g. `venv <https://docs.python.org/3/tutorial/venv.html>`_,
+`conda <https://docs.conda.io/en/latest/>`_).
 
-BESSER works with Python 3.9+. We recommend creating a virtual environment (e.g. [venv](https://docs.python.org/3/tutorial/venv.html), [conda](https://docs.conda.io/en/latest/)).
+Dependencies
+************
+BOCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluation. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
-The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
+.. code-block:: console
 
     $ pip install besser
 
+
+# BOCL Installation
+
+
+Stable version of BOCL interpreter can be installed via
+
+    $ pip install bocl
+
+
+
 ## Building From Source
 
-If you prefer to obtain the full code, you can clone the git repository.
+To obtain the full code, including examples and tests, you can clone the git repository.
 
-    $ git clone https://github.com/BESSER-PEARL/BESSER.git
-    $ cd BESSER
+    $ git clone https://github.com/BESSER-PEARL/BOCL-Interpreter
+    $ cd BOCL-Interpreter
 
-Install *build*, then generate and install the *besser* package. Remember to replace `*.*.*` by the package version number.
+To install the reqs please run the following commands in virtual environment (recommended)
 
-    $ pip install --upgrade build
-    $ python -m build
-    $ pip install dist/besser-*.*.*-py3-none-any.whl
-
-You can check the installation of the *besser* package.
-
-    $ pip list
+    $ pip install -r reqs.txt
 
 ## Contributing
 

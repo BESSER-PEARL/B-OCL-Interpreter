@@ -6,4 +6,6 @@ See the following examples where we define OCL constraints in B-UML models (Doma
 .. toctree::
 
    examples/library_example
-    examples/researcher_example
+   examples/object_example
+   examples/ocl
+   examples/researcher_example

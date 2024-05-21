@@ -1,17 +1,31 @@
-Object model example
+Library Model (Structural and Object) example
 ====================
 
-This example present the Python code to specify a model (illustrated in the following figure) consisting of a 
-:doc:`../buml_language/model_types/structural` and a :doc:`../buml_language/model_types/object`.
+This image below shows the structural model and object model of Library
 
 .. image:: ../img/library_object.png
   :width: 700
-  :alt: Library object model
+  :alt: Library models (Structural and Object)
   :align: center
 
-The Python code to specify the structural and object models (using the B-UML libraries) is presented below., including its classes, attributes, and relationships, is presented in the following
-code (lines 1-44).
+Some of the OCL Constraints defined on these models are shown below:
 
-.. literalinclude:: ../../../tests/object/library_object.py
-   :language: python
-   :linenos:
+.. code-block:: python
+
+    context Book inv inv2: self.pages>0
+
+    context Library inv inv3: if self.name <> 'NI' then self.has->exists"
+           "( i_book : Book | i_book.pages <= 110 ) else self.has->forAll(b:Book|b.pages>0)"
+           " endif
+
+Some example constraints are defined in the :doc:`../models/library_object`
+
+
+More constrained can be defined using BUML Structural and rules classes as shown below:
+
+.. code-block:: python
+
+    constraintLibraryElse: Constraint = Constraint(name ="LibaryElse", context=library,
+            expression="context Library inv inv3: if self.name = 'NI' then self.has->exists"
+           "( i_book : Book | i_book.pages <= 110 ) else self.has->forAll(b:Book|b.pages>0)"
+           " endif", language="OCL")

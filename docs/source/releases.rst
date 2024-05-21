@@ -3,4 +3,4 @@ Release Notes
 
 .. toctree::
 
-   releases/v1.0.0
+   releases/v0.1.0
