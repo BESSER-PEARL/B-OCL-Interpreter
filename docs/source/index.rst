@@ -28,9 +28,6 @@ Contents
    :maxdepth: 2
 
    installation
-   buml_language
-   generators
-   utilities
    examples
    api
    releases
