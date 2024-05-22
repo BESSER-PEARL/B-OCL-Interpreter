@@ -2,11 +2,26 @@ from besser.BUML.notations.ocl.FactoryInstance import Factory
 from besser.BUML.metamodel.ocl.rules import *
 from besser.BUML.metamodel.structural.structural import Property
 class Evaluator:
+    """The Evaluator class evaluates the OCL constraints based on the object model.
 
+    Args:
+
+    Attributes:
+            debug = this attribute is used for debugging purposes and with default value false
+            allObjSat = list of all objects that satisfy the contraint
+    """
     def __init__(self):
         self.debug = False
         self.allObjSat = []
+
+
     def get_value(self,name, obj):
+        """The get_value function to retrieve value of attribute from object.
+
+            Args:
+                        name: name of the attribute
+                        object: Object from object model
+            """
         for slot in obj.slots:
             if name == slot.attribute.name:
                 if slot.attribute.type.name == 'str':
@@ -14,10 +29,22 @@ class Evaluator:
                 else:
                     return slot.value.value
     def checkInObj(self,obj,source):
+        """The checkInObj function identifies the object that contains the source in slots.
+
+        Args:
+            obj: Object from object model
+            source: source of the current object in the CSTree
+        """
         for s in obj.slots:
             if s.attribute.name == source.name:
                 return obj
     def checkInLinkEnds(self,obj, source):
+        """The checkInLinkEnds function identifies the source in the linkend of the object.
+
+        Args:
+            obj: Object from object model
+            source: source of the current object in the CSTree
+        """
         toRet = []
         for link in obj.links:
             for connection in link.connections:
@@ -26,6 +53,13 @@ class Evaluator:
 
         return toRet
     def handleForAll(self, tree, allObjs, logicalExp):
+        """The handleForAll function handles forAll expression from OCL MM.
+
+        Args:
+                    tree: Tree that is constructed using OCL Parser
+                    allObjs: all objects from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+        """
         logicalExp[0] = logicalExp[0] +" ("
         for index in range(len(allObjs)):
             if len(tree.get_body)>0:
@@ -35,6 +69,15 @@ class Evaluator:
         logicalExp[0] = logicalExp[0] +" )"
         pass
     def handle(self, source, obj, logicalExp,rightSide = False):
+        """The handle function handles Property Call expression from OCL MM.
+
+        Args:
+                    source: one child in OCL CST
+                    obj: one object from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+                    rightSide: to identify the side of logical expression
+        """
+
         if isinstance(source, PropertyCallExpression):
             if len(source.name.split('.'))==2:
                 allObjs = self.checkInObj(obj,source)
@@ -60,6 +103,13 @@ class Evaluator:
             pass
         pass
     def handleExcludes(self, tree, obj, logicalExp):
+        """The handleExcludes function handles excludes construct.
+
+        Args:
+                    tree: Tree that is constructed using OCL Parser
+                    obj: one object from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+        """
         # tempLogicalExp =[""]
         args = tree.arguments
         self.checkAndAdd(logicalExp, " and ")
@@ -73,6 +123,14 @@ class Evaluator:
         pass
 
     def handleIncludes(self, tree, obj, logicalExp):
+        """The handleIncludes function handles includes construct.
+
+        Args:
+                    tree: Tree that is constructed using OCL Parser
+                    obj: one object from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+        """
+
         # tempLogicalExp =[""]
         args = tree.arguments
         self.checkAndAdd(logicalExp, " and ")
@@ -85,6 +143,13 @@ class Evaluator:
             logicalExp[0] = logicalExp[0] + " ]"
         pass
     def handleExists(self,tree,allObjs,logicalExp):
+        """The handleExists function handles exists construct.
+
+        Args:
+            tree: Tree that is constructed using OCL Parser
+            allObjs: all objects from object model
+            logicalExp: Expression to evaluate at the end to get the result
+        """
         logicalExp[0] = logicalExp[0] + " ("
         for index in range(len(allObjs)):
             if len(tree.get_body) > 0:
@@ -93,6 +158,13 @@ class Evaluator:
                     logicalExp[0] = logicalExp[0] + " or "
         logicalExp[0] = logicalExp[0] + " )"
     def handleCollect(self,tree,allObjs,logicalExp):
+        """The handleCollect function handles collect construct.
+
+        Args:
+               tree: Tree that is constructed using OCL Parser
+               allObjs: all objects from object model
+               logicalExp: Expression to evaluate at the end to get the result
+        """
         self.allObjSat.append([])
         for obj in allObjs:
             expression = [""]
@@ -101,6 +173,14 @@ class Evaluator:
                 if eval (expression[0]) == True:
                     self.allObjSat[-1].append(obj)
     def verifyBody (self,tree, obj,logicalExp,source):
+        """The verifyBody function verifies the body of different constructs (e.g., forAll, exists).
+
+        Args:
+            tree: Tree that is constructed using OCL Parser
+            obj: one object from object model
+            logicalExp: Expression to evaluate at the end to get the result
+            source: source of the obj in CSTree
+        """
         expressionType = tree.name
         allObjs = self.checkInObj(obj,source)
         if allObjs is None:
@@ -114,15 +194,33 @@ class Evaluator:
             self.handleCollect(tree,allObjs,logicalExp)
         pass
     def getID(self,slots):
+        """The getID function gets the ID attribute from the Object.
+
+        Args:
+                    slots: slots of the object
+        """
         for s in slots:
             if s.get_attribute.is_id:
                 return s
-    def add_to_exp(self,item,logicalExp):
+    def addToExp(self, item, logicalExp):
+        """The addToExp function adds the item to logicalExpression.
+
+        Args:
+              item: item to add in Logical Expression
+              logicalExp: logical Expression
+        """
         if logicalExp[0] == "":
             logicalExp[0] = logicalExp[0] + item
         else:
             logicalExp[0] = logicalExp[0] + " and "+item
     def handleSize(self, tree,obj,logicalExp):
+        """The handleSize function handles the size construct.
+
+        Args:
+                    tree: Tree that is constructed using OCL Parser
+                    obj: one object from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+        """
         self.checkAndAdd(logicalExp , " and ")
         logicalExp[0] = logicalExp[0] + "("
         if isinstance(tree.source, Property):
@@ -158,11 +256,15 @@ class Evaluator:
                         logicalExp[0] = logicalExp[0]+str(arg)
         logicalExp[0] = logicalExp[0] + ")"
 
-            #
-            # if len(self.allObjSat)>0:
-            #     logicalExp[0] = str(len(self.allObjSat))+logicalExp[0]
-            #     self.allObjSat.pop()
     def handleIFExp(self,tree, obj, logicalExp):
+        """The handleIFExp function handles the If construct.
+
+        Args:
+                    tree: Tree that is constructed using OCL Parser
+                    obj: one object from object model
+                    logicalExp: Expression to evaluate at the end to get the result
+        """
+
         tempExp = [""]
         self.update_logical_exp(tree.ifCondition, tempExp, obj)
         self.preprocessLogicalExp(tempExp)
@@ -174,6 +276,13 @@ class Evaluator:
 
         pass
     def handleOCLIsTypeOf(self, tree,obj,logicalExp):
+        """The handleOCLIsTypeOf function handles the OCLIsTypeOf construct.
+
+        Args:
+                tree: Tree that is constructed using OCL Parser
+                obj: one object from object model
+                logicalExp: Expression to evaluate at the end to get the result
+        """
         if isinstance(tree.source, Property):
             sourceType = tree.source.type.name
             self.checkAndAdd(logicalExp, " and ")
@@ -191,6 +300,13 @@ class Evaluator:
                     self.checkAndAdd(logicalExp, "and")
 
     def update_logical_exp(self, tree, logicalExp, obj):
+        """The update_logical_exp function updates the logical expression.
+
+        Args:
+                        tree: Tree that is constructed using OCL Parser
+                        obj: one object from object model
+                        logicalExp: Expression to evaluate at the end to get the result
+        """
         print("",end ="")
 
         if isinstance(tree,PropertyCallExpression):
@@ -232,6 +348,12 @@ class Evaluator:
             if tree.source is not None:
                 self.update_logical_exp(tree.source, logicalExp, obj)
     def checkAndAdd(self, logicalExpTemplate, toAdd):
+        """The checkAndAdd function checks and updates the logical expression.
+
+        Args:
+                toAdd: item to add in the logical expression
+                logicalExpTemplate: Expression to evaluate at the end to get the result
+        """
         if len(logicalExpTemplate[0])>5:
             if toAdd == " and ":
                 if logicalExpTemplate[0][-5:] != " and ":
@@ -246,11 +368,26 @@ class Evaluator:
                     logicalExpTemplate[0] = logicalExpTemplate[0] + toAdd
 
     def valid_object(self,contextName, object):
+        """the valid_object verifies if the current object is the one constraint is applied on
+
+        Args:
+            contextName: name of the context of OCL constraint
+            Object: Object from object model to check
+
+        """
         idSlot = self.getID(object.slots)
         if idSlot.get_attribute.name == contextName:
             return True
         return False
     def getValidObjects(self,contextName, objs):
+        """the getValidObjects returns all the objects the constraint should be applied on
+
+        Args:
+            contextName: name of the context of OCL constraint
+            objs: all objects from object model
+
+        """
+
         toRet = []
         for obj in objs.instances:
             # if self.valid_object(contextName,obj):
@@ -259,6 +396,12 @@ class Evaluator:
         return toRet
 
     def preprocessLogicalExp(self,exp):
+        """the preprocessLogicalExp function preprocesses before evaluating to correct the syntax.
+
+        Args:
+            exp: logical expression to be evaluated
+
+        """
         exp[0]=exp[0].replace(' = ', ' == ').replace('<>', ' != ')
         if len(exp[0])>5:
             if exp[0][-5:] == " and ":
@@ -267,6 +410,12 @@ class Evaluator:
             if exp[0][-4:] == " or ":
                 exp[0] = exp[0][:-4]
     def evaluate(self, rootHandler,objectModel):
+        """the evaluate function is the main function to be called for evaluating any contraint.
+
+        Args:
+            rootHandler: Object of class RootHandler that handles the tree
+            objectModel: Object Model from BUML models
+        """
         self.om = objectModel
         self.roothandler = rootHandler
 

@@ -1,7 +1,7 @@
-Structural model
+BOCL Wrapper
 ================
 
-.. automodule:: besser.BUML.metamodel.structural.structural
+.. automodule:: src.OCLWrapper
    :members:
    :private-members:
    :undoc-members:
