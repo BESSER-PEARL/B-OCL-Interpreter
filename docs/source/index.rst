@@ -21,6 +21,11 @@ of our Python-based personal interpretation of a "Universal Modeling Language"
 
 You will find here all the necessary information about the BOCL interpreter including the definition of OCL constraints and their evaluation.
 
+.. note::
+    Kindly note that with boolean attribute the expected value (True/False) much be added in the constraint. BOCL does not support default value (i.e., True) for boolean attributes.
+    Also note that for LoopExpressions it is important to mention the type of iterator.
+
+
 Contents
 --------
 

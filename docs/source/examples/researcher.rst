@@ -27,5 +27,5 @@ More constrained can be defined using BUML Structural and rules classes as shown
 .. code-block:: python
 
     constraintNoStudentReviewers: Constraint = Constraint(name="NoStudentReviewers", context=paper,
-                                               expression="context Paper inv NoStudentReviewers:self.referee->forAll(r | not r.isStudent)", language="OCL")
+                                               expression="context Paper inv NoStudentReviewers:self.referee->forAll(r | not r.isStudent =False)", language="OCL")
 

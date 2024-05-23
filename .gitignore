@@ -23,3 +23,4 @@ besser/.idea/workspace.xml
 *.xml
 myenv/
 besser/BUML/notations/ocl/__init__.py
+test/ocl_interpreter_test_researcher_local.py
