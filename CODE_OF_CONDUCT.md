@@ -8,7 +8,7 @@ We pledge to act and interact in ways that contribute to an open, welcoming, div
 ## Need Help?
 If ANY behavior makes you uncomfortable, or you believe it breaches the intent of this code of conduct, please contact a project maintainer:
 
-* [Iván Alfonso](https://github.com/ivan-alfonso) 
+* [Fitash UL HAQ](https://github.com/FitashUlHaq) 
 * [Jordi Cabot](https://github.com/jcabot)
 
 ---
