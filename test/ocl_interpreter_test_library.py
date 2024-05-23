@@ -1,5 +1,5 @@
 from models.library_object import library_model,object_model
-from src.OCLWrapper import OCLWrapper
+from bocl.OCLWrapper import OCLWrapper
 
 def test_1():
     wrapper = OCLWrapper(library_model, object_model)

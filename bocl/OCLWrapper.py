@@ -1,4 +1,4 @@
-from src.Evaluator import  Evaluator
+from bocl.Evaluator import  Evaluator
 from besser.BUML.notations.ocl.BOCLLexer import BOCLLexer
 from besser.BUML.notations.ocl.BOCLParser import BOCLParser
 from besser.BUML.notations.ocl.BOCLListener import BOCLListener
