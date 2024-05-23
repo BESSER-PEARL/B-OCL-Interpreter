@@ -78,8 +78,8 @@ class Evaluator:
                     rightSide: to identify the side of logical expression
         """
 
-        if isinstance(source, PropertyCallExpression):
-            if len(source.name.split('.'))==2:
+        if isinstance(source, PropertyCallExpression) or isinstance(source,Property):
+                # if len(source.name.split('.'))==2:
                 allObjs = self.checkInObj(obj,source)
                 if allObjs is None:
                     allObjs = self.checkInLinkEnds(obj, source)
@@ -88,7 +88,7 @@ class Evaluator:
                     if len(allObjs) > 1 or rightSide:
                         logicalExp[0] = logicalExp[0] + " [ "
                     for i in range (len(objs.slots)):
-                        logicalExp[0] = logicalExp[0] + "\""+str(objs.slots[i].name)+ str(objs.slots[i].value.value) + "\""
+                        logicalExp[0] = logicalExp[0] + "\""+str(objs.slots[i].attribute.name)+ str(objs.slots[i].value.value) + "\""
                         if i < len(objs.slots)-1:
                             logicalExp[0] = logicalExp[0]+","
                     if not rightSide:
@@ -100,7 +100,7 @@ class Evaluator:
                             logicalExp[0] = logicalExp[0] + " , "
 
 
-            pass
+                pass
         pass
     def handleExcludes(self, tree, obj, logicalExp):
         """The handleExcludes function handles excludes construct.
@@ -150,12 +150,16 @@ class Evaluator:
             allObjs: all objects from object model
             logicalExp: Expression to evaluate at the end to get the result
         """
-        logicalExp[0] = logicalExp[0] + " ("
+        logicalExp[0] = logicalExp[0] + " ( "
+        temp = logicalExp[0]
         for index in range(len(allObjs)):
             if len(tree.get_body) > 0:
                 self.update_logical_exp(tree.get_body[0], logicalExp, allObjs[index])
                 if index < len(allObjs) - 1:
                     logicalExp[0] = logicalExp[0] + " or "
+        if temp == logicalExp[0]:
+            logicalExp[0] = logicalExp[0] + " False "
+
         logicalExp[0] = logicalExp[0] + " )"
     def handleCollect(self,tree,allObjs,logicalExp):
         """The handleCollect function handles collect construct.
@@ -170,9 +174,11 @@ class Evaluator:
             expression = [""]
             if len(tree.get_body) > 0:
                 self.update_logical_exp(tree.get_body[0], expression, obj)
+                self.preprocessLogicalExp(expression)
                 if eval (expression[0]) == True:
                     self.allObjSat[-1].append(obj)
-    def verifyBody (self,tree, obj,logicalExp,source):
+
+    def verifyBody (self,tree, obj,logicalExp,source,allObjs= None):
         """The verifyBody function verifies the body of different constructs (e.g., forAll, exists).
 
         Args:
@@ -182,15 +188,21 @@ class Evaluator:
             source: source of the obj in CSTree
         """
         expressionType = tree.name
-        allObjs = self.checkInObj(obj,source)
         if allObjs is None:
-            allObjs = self.checkInLinkEnds(obj, source)
+            allObjs = self.checkInObj(obj,source)
+            if allObjs is None:
+                allObjs = self.checkInLinkEnds(obj, source)
+        if source.name == "ALLInstances":
+                className = source.source.name
+                allObjs = self.getValidObjects(className, self.om)
 
         if expressionType == "forAll":
             self.handleForAll(tree, allObjs, logicalExp)
         elif expressionType == "exists":
             self.handleExists(tree,allObjs,logicalExp)
         elif expressionType == "collect":
+            self.handleCollect(tree,allObjs,logicalExp)
+        elif expressionType == "select":
             self.handleCollect(tree,allObjs,logicalExp)
         pass
     def getID(self,slots):
@@ -239,12 +251,16 @@ class Evaluator:
         elif isinstance(tree.source,LoopExp):
             if tree.source.source is not None:
                 source = tree.source.source
-            allObjs = self.checkInObj(obj, source)
-            if allObjs is None:
-                allObjs = self.checkInLinkEnds(obj, source)
+            if source.name == "ALLInstances":
+                className = source.source.name
+                allObjs = self.getValidObjects(className, self.om)
+            else:
+                allObjs = self.checkInObj(obj, source)
+                if allObjs is None:
+                    allObjs = self.checkInLinkEnds(obj, source)
             self.handleCollect(tree.source,allObjs,logicalExp)
             if len(self.allObjSat)>0:
-                logicalExp[0] = logicalExp[0] +str(len(self.allObjSat))
+                logicalExp[0] = logicalExp[0] +str(len(self.allObjSat[-1]))
                 self.allObjSat.pop()
             for arg in tree.arguments:
 
@@ -299,6 +315,7 @@ class Evaluator:
                 if index >0 and index < len(tree.arguments)-1:
                     self.checkAndAdd(logicalExp, "and")
 
+
     def update_logical_exp(self, tree, logicalExp, obj):
         """The update_logical_exp function updates the logical expression.
 
@@ -307,7 +324,6 @@ class Evaluator:
                         obj: one object from object model
                         logicalExp: Expression to evaluate at the end to get the result
         """
-        print("",end ="")
 
         if isinstance(tree,PropertyCallExpression):
            if tree.source == None:
@@ -330,6 +346,8 @@ class Evaluator:
                 self.checkAndAdd(logicalExp, " and ")
             elif tree.name == "OCLISTYPEOF":
                 self.handleOCLIsTypeOf(tree,obj,logicalExp)
+            elif tree.name == "ALLInstances":
+                pass #handled elsewhere
             else:
                 args = tree.arguments
                 for arg in args:
@@ -341,9 +359,12 @@ class Evaluator:
                        else:
                             logicalExp[0]= logicalExp[0] + str(self.get_value(arg.name,obj))
                    else:
-                       logicalExp[0] = logicalExp[0] +" " +str(arg)+ " "
-                if tree.referredOperation is not None and( tree.referredOperation.get_infix_operator() == "and" or tree.referredOperation.get_infix_operator() == "or"):
-                    logicalExp[0] =  " "+logicalExp[0]+" "+tree.referredOperation.get_infix_operator()  +" "
+                       if str(arg).lower() == "and" or str(arg).lower() =='or':
+                           self.checkAndAdd(logicalExp[0],str(arg))
+                       else:
+                           logicalExp[0] = logicalExp[0] +" " +str(arg)+ " "
+                if tree.referredOperation is not None  and( tree.referredOperation.get_infix_operator() == "and" or tree.referredOperation.get_infix_operator() == "or"):
+                    self.checkAndAdd(logicalExp[0],tree.referredOperation.get_infix_operator())
         if hasattr(tree, "source"):
             if tree.source is not None:
                 self.update_logical_exp(tree.source, logicalExp, obj)
@@ -426,9 +447,10 @@ class Evaluator:
             self.update_logical_exp(tree, logicalExpTemplate, objs[i])
             if len(objs)>1 and i < len(objs) -1:
                 self.checkAndAdd(logicalExpTemplate," and ")
-                # logicalExpTemplate[0] = logicalExpTemplate[0] +" and "
+
 
         if self.debug:
+            print("Logical Expression")
             print(logicalExpTemplate[0])
         self.preprocessLogicalExp(logicalExpTemplate)
         return eval(logicalExpTemplate[0])

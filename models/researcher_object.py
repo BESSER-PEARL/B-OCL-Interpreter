@@ -32,29 +32,40 @@ referee: Property = Property(name="referee", type=researcher, multiplicity=Multi
 reviews: BinaryAssociation = BinaryAssociation(name="reviews", ends={submission, referee})
 
 constraintResearcher: Constraint = Constraint(name="NoSelfReviews", context=researcher,
-                                               expression="self.submission->excludes(self.manuscript)", language="OCL")
+                                               expression="context Researcher inv NoSelfReviews: self.submission->excludes(self.manuscript)", language="OCL")
 
 constraintPaper: Constraint = Constraint(name="PaperLength", context=paper,
-                                               expression="context Paper inv :self.wordCount < 10000", language="OCL")
+                                               expression="context Paper inv :self.wordcount < 10000", language="OCL")
 
 constraintAuthorsOfStudentPaper: Constraint = Constraint(name="AuthorsOfStudentPaper", context=paper,
-                                               expression="context Paper inv AuthorsOfStudentPaper: self.studentPaper = self.author−>exists(x | x.isStudent )", language="OCL")
+                                               expression="context Paper inv AuthorsOfStudentPaper: self.author->exists(x:Researcher | x.isStudent =True)", language="OCL")
 
 constraintNoStudentReviewers: Constraint = Constraint(name="NoStudentReviewers", context=paper,
-                                               expression="context Paper inv NoStudentReviewers:self.referee−>forAll(r | not r.isStudent)", language="OCL")
+                                               expression="context Paper inv NoStudentReviewers:self.referee->forAll(r:Researcher | r.isStudent =False)", language="OCL")
 
 constraintLimitsOnStudentPapers: Constraint = Constraint(name="LimitsOnStudentPapers", context=paper,
-                                               expression="context Paper inv LimitsOnStudentPapers: Paper::allInstances()−>exists(p | p.studentPaper) and Paper::allInstances()−>select(p | p.studentPaper) −>size() < 5", language="OCL")
+                                               expression="context Paper inv LimitsOnStudentPapers: Paper::allInstances()->exists(p:Paper | p.studentPaper = True) and Paper::allInstances()->select(p:Paper | p.studentPaper=True) ->size() < 5", language="OCL")
 
+constraintPaperTitle: Constraint = Constraint(name="constraintPaperTitle", context=paper,
+                                               expression="context Paper inv title: self.tittle<> 'test'", language="OCL")
+constraintResearcherName:Constraint = Constraint(name="consResearcherName", context=researcher,
+                                               expression="context Researcher inv title: self.name<> 'test'", language="OCL")
 
+constraintPaperWordCountgreater: Constraint = Constraint(name="PaperLength100", context=paper,
+                                               expression="context Paper inv :self.wordcount > 1000", language="OCL")
 
 
 # Structural model
-domain_model: DomainModel = DomainModel(name="my_model", types={paper, researcher}, associations={writes, reviews}, constraints = {constraintResearcher,
+domain_model: DomainModel = DomainModel(name="my_model", types={paper, researcher}, associations={writes, reviews}, constraints = {
+                                                                                                                    constraintResearcher,
                                                                                                                     constraintPaper,
                                                                                                                     constraintAuthorsOfStudentPaper,
                                                                                                                     constraintNoStudentReviewers,
-                                                                                                                    constraintLimitsOnStudentPapers})
+                                                                                                                    constraintLimitsOnStudentPapers,
+                                                                                                                    constraintPaperTitle,
+                                                                                                                    constraintResearcherName,
+                                                                                                                    constraintPaperWordCountgreater
+                                                                                                                                   })
 
 
 ###################################
@@ -64,22 +75,22 @@ domain_model: DomainModel = DomainModel(name="my_model", types={paper, researche
 # paper object
 paper_name: AttributeLink = AttributeLink(value=DataValue(value="besser lowcode platform", classifier=None), attribute=tittle)
 paper_words: AttributeLink = AttributeLink(value=DataValue(value=5000, classifier=None), attribute=wordCount)
-paper_student_paper: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=studentPaper)
+paper_student_paper: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=studentPaper)
 paper_obj: Object = Object(name="besser paper", classifier=paper, slots=[paper_name, paper_words, paper_student_paper])
 
 # researcher 1 object
 r1_name: AttributeLink = AttributeLink(value=DataValue(value="Marc", classifier=None), attribute=name)
-r1_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
+r1_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
 researcher_1: Object = Object(name="Marc researcher", classifier=researcher, slots=[r1_name, r1_is_student])
 
 # researcher 2 object
 r2_name: AttributeLink = AttributeLink(value=DataValue(value="James", classifier=None), attribute=name)
-r2_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
+r2_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
 researcher_2: Object = Object(name="James researcher", classifier=researcher, slots=[r2_name, r2_is_student])
 
 # researcher 3 object
 r3_name: AttributeLink = AttributeLink(value=DataValue(value="Adam", classifier=None), attribute=name)
-r3_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
+r3_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
 researcher_3: Object = Object(name="Adam researcher", classifier=researcher, slots=[r3_name, r3_is_student])
 
 # researcher 4 object
@@ -89,7 +100,7 @@ researcher_4: Object = Object(name="Lola researcher", classifier=researcher, slo
 
 # researcher 5 object
 r5_name: AttributeLink = AttributeLink(value=DataValue(value="Sarah", classifier=None), attribute=name)
-r5_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
+r5_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
 researcher_5: Object = Object(name="Sarah researcher", classifier=researcher, slots=[r5_name, r5_is_student])
 
 # Links definition
@@ -117,6 +128,7 @@ reviews_3: Link = Link(name="writes", association=writes, connections=[
     LinkEnd(name="submission", association_end=submission, object=paper_obj),
     LinkEnd(name="referee", association_end=referee, object=researcher_5)
 ])
+
 
 
 # object model
