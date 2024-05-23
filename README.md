@@ -36,7 +36,7 @@ To obtain the full code, including examples and tests, you can clone the git rep
 
 To install the reqs please run the following commands in virtual environment (recommended)
 
-    $ pip install -r reqs.txt
+    $ pip install -r requirements.txt
 
 ## Contributing
 

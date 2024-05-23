@@ -39,4 +39,4 @@ To install the reqs please run the following commands in virtual environment (re
 
 .. code-block:: console
 
-    $ pip install -r reqs.txt
+    $ pip install -r requirements.txt
