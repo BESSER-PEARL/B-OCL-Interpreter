@@ -3,11 +3,8 @@
 **BOCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
 It is a python based implementation, that utilises parser and listener generated with the ANTLR4 grammer.
 
-**BESSER** is a `low-modeling <https://modeling-languages.com/welcome-to-the-low-modeling-revolution/>`_
-`low-code <https://modeling-languages.com/low-code-vs-model-driven/>`_ open-source platform built on top 
+**BESSER** is a low-modeling low-code open-source platform built on top 
 of our Python-based personal interpretation of a "Universal Modeling Language"
-
-
 
 ## Basic Installation
 We have tested BOCL with python 3.9+. We recommend creating a virtual environment (e.g. `venv <https://docs.python.org/3/tutorial/venv.html>`_,
@@ -17,7 +14,6 @@ Dependencies
 ************
 BOCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluation. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
-.. code-block:: console
 
     $ pip install besser
 
