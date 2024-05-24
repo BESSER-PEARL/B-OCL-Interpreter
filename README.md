@@ -25,14 +25,12 @@ Stable version of BOCL interpreter can be installed via
 
     $ pip install bocl
 
-
-
 ## Building From Source
 
 To obtain the full code, including examples and tests, you can clone the git repository.
 
     $ git clone https://github.com/BESSER-PEARL/BOCL-Interpreter
-    $ cd BOCL-Interpreter
+    $ [README.md](README.md)cd BOCL-Interpreter
 
 To install the reqs please run the following commands in virtual environment (recommended)
 
@@ -56,6 +54,9 @@ The development of this project follows the governance rules described in the [G
 You can reach us at: [info@besser-pearl.org](mailto:info@besser-pearl-org)
 
 Website: https://besser-pearl.github.io/teampage/
+
+## Documentation
+More details about BOCL can be find here https://bocl-interpreter.readthedocs.io/en/latest/
 
 ## License
 
