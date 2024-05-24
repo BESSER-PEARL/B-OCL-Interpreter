@@ -19,7 +19,16 @@ of our Python-based personal interpretation of a "Universal Modeling Language"
   :alt: B-UML metamodel
   :align: center
 
-You will find here all the necessary information about the BOCL interpreter including the definition of OCL constraints and their evaluation.
+
+
+Figure below show the workflow for BOCL Interpreter. For more details on defining and evaluating OCL constraints please look at examples/How to define and evaluate constraints
+
+
+.. image:: img/BOCL_WorkFlow.png
+  :width: 800
+  :alt: B-UML metamodel
+  :align: center
+
 
 .. note::
     Kindly note that with boolean attribute the expected value (True/False) much be added in the constraint. BOCL does not support default value (i.e., True) for boolean attributes.
