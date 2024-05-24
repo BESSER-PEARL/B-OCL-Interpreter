@@ -1,7 +1,7 @@
 BOCL Evaluator
 ================
 
-.. automodule:: src.Evaluator
+.. automodule:: bocl.Evaluator
    :members:
    :private-members:
    :undoc-members:

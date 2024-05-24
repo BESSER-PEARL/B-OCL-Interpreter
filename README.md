@@ -12,7 +12,7 @@ We have tested BOCL with python 3.9+. We recommend creating a virtual environmen
 
 Dependencies
 ************
-BOCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluation. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
+BOCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluate. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
 
     $ pip install besser
@@ -56,7 +56,7 @@ You can reach us at: [info@besser-pearl.org](mailto:info@besser-pearl-org)
 Website: https://besser-pearl.github.io/teampage/
 
 ## Documentation
-More details about BOCL can be find here https://bocl-interpreter.readthedocs.io/en/latest/
+More details about BOCL can be found here https://bocl-interpreter.readthedocs.io/en/latest/
 
 ## License
 

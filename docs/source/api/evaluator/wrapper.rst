@@ -1,7 +1,7 @@
 BOCL Wrapper
 ================
 
-.. automodule:: src.OCLWrapper
+.. automodule:: bocl.OCLWrapper
    :members:
    :private-members:
    :undoc-members:
