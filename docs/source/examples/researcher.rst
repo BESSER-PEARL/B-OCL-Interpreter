@@ -20,7 +20,7 @@ Some of the OCL Constraints defined on these models are shown below:
     context Paper inv :self.wordCount < 10000
 
 
-Some example constraints are defined in the `Researcher example <https://github.com/BESSER-PEARL/BOCL-Interpreter/blob/5db7fd0e1f0f4e98569164fbd4d815baf5e45d17/models/researcher_object.py#L34-L54/>`_
+Some example constraints are defined in the `Researcher example <https://github.com/BESSER-PEARL/b-ocl-Interpreter/blob/5db7fd0e1f0f4e98569164fbd4d815baf5e45d17/models/researcher_object.py#L34-L54/>`_
 
 More constrained can be defined using BUML Structural and rules classes as shown below:
 

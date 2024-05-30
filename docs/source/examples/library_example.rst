@@ -18,7 +18,7 @@ Some of the OCL Constraints defined on these models are shown below:
            "( i_book : Book | i_book.pages <= 110 ) else self.has->forAll(b:Book|b.pages>0)"
            " endif
 
-Some example constraints are defined in the `Library  example <https://github.com/BESSER-PEARL/BOCL-Interpreter/blob/5db7fd0e1f0f4e98569164fbd4d815baf5e45d17/models/library_object.py#L45-L80/>`_
+Some example constraints are defined in the `Library  example <https://github.com/BESSER-PEARL/b-ocl-Interpreter/blob/5db7fd0e1f0f4e98569164fbd4d815baf5e45d17/models/library_object.py#L45-L80/>`_
 
 
 More constrained can be defined using BUML Structural and rules classes as shown below:

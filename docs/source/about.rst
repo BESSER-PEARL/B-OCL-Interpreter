@@ -1,7 +1,7 @@
 About
 =====
 
-BOCL (BESSER Object Constraint Language) is a part of BESSER which is an `FNR-funded PEARL project <https://www.fnr.lu/funding-instruments/pearl/>`_ that stands for BEtter Smart Software fastER (BESSER) - *An
+B-OCL (BESSER Object Constraint Language) is a part of BESSER which is an `FNR-funded PEARL project <https://www.fnr.lu/funding-instruments/pearl/>`_ that stands for BEtter Smart Software fastER (BESSER) - *An
 Intelligent low-code infrastructure for smart software*.
 BESSER is hosted via a joint structural collaboration lead by `LIST <https://www.list.lu/>`_
 and with the participation of `SnT/UL <https://wwwfr.uni.lu/snt>`_, it has the aim to combine both strategic research and applied research. The results 

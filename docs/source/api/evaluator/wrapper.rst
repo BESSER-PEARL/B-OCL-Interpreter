@@ -1,4 +1,4 @@
-BOCL Wrapper
+B-OCL Wrapper
 ================
 
 .. automodule:: bocl.OCLWrapper

@@ -1,4 +1,4 @@
-BOCL_Interpreter
+B-OCL Interpreter
 ==============
 
 .. toctree::

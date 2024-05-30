@@ -164,4 +164,4 @@ and the output for this code will be:
     Query: context player inv inv1: self.age > 10: True
 
 
-The complete code is available on our github repository https://github.com/BESSER-PEARL/BOCL-Interpreter.
+The complete code is available on our github repository https://github.com/BESSER-PEARL/B-OCL-Interpreter.

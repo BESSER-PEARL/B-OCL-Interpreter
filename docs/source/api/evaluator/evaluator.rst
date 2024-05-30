@@ -1,4 +1,4 @@
-BOCL Evaluator
+B-OCL Evaluator
 ================
 
 .. automodule:: bocl.Evaluator

@@ -1,6 +1,6 @@
-BOCL_Interpreter_API
+API
 ====
 
 .. toctree::
 
-    api/api_BOCL
+    api/api_B-OCL

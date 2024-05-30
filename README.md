@@ -1,27 +1,27 @@
 # BESSER Object Constraint Language Interpreter
 
-**BOCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
+**B-OCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
 It is a python based implementation, that utilises parser and listener generated with the ANTLR4 grammer.
 
 **BESSER** is a low-modeling low-code open-source platform built on top 
 of our Python-based personal interpretation of a "Universal Modeling Language"
 
 ## Basic Installation
-We have tested BOCL with python 3.9+. We recommend creating a virtual environment (e.g. `venv <https://docs.python.org/3/tutorial/venv.html>`_,
+We have tested B-OCL with python 3.9+. We recommend creating a virtual environment (e.g. `venv <https://docs.python.org/3/tutorial/venv.html>`_,
 `conda <https://docs.conda.io/en/latest/>`_).
 
 Dependencies
 ************
-BOCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluate. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
+B-OCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluate. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
 
     $ pip install besser
 
 
-# BOCL Installation
+# B-OCL Installation
 
 
-Stable version of BOCL interpreter can be installed via
+Stable version of B-OCL interpreter can be installed via
 
     $ pip install bocl
 
@@ -29,8 +29,8 @@ Stable version of BOCL interpreter can be installed via
 
 To obtain the full code, including examples and tests, you can clone the git repository.
 
-    $ git clone https://github.com/BESSER-PEARL/BOCL-Interpreter
-    $ [README.md](README.md)cd BOCL-Interpreter
+    $ git clone https://github.com/BESSER-PEARL/b-ocl-Interpreter
+    $ [README.md](README.md)cd b-ocl-Interpreter
 
 To install the reqs please run the following commands in virtual environment (recommended)
 
@@ -56,7 +56,7 @@ You can reach us at: [info@besser-pearl.org](mailto:info@besser-pearl-org)
 Website: https://besser-pearl.github.io/teampage/
 
 ## Documentation
-More details about BOCL can be found here https://bocl-interpreter.readthedocs.io/en/latest/
+More details about B-OCL can be found here https://b-ocl-interpreter.readthedocs.io/en/latest/
 
 ## License
 
