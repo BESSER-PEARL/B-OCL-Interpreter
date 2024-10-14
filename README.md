@@ -7,7 +7,7 @@ It is a python based implementation, that utilises parser and listener generated
 of our Python-based personal interpretation of a "Universal Modeling Language"
 
 ## Basic Installation
-We have tested B-OCL with python 3.9+. We recommend creating a virtual environment (e.g. `venv <https://docs.python.org/3/tutorial/venv.html>`_,
+We have tested B-OCL with python 3.9+. We recommend creating a virtual environment using `venv <https://docs.python.org/3/tutorial/venv.html>`_, or
 `conda <https://docs.conda.io/en/latest/>`_).
 
 Dependencies
@@ -30,7 +30,7 @@ Stable version of B-OCL interpreter can be installed via
 To obtain the full code, including examples and tests, you can clone the git repository.
 
     $ git clone https://github.com/BESSER-PEARL/b-ocl-Interpreter
-    $ [README.md](README.md)cd b-ocl-Interpreter
+    $ cd b-ocl-Interpreter
 
 To install the reqs please run the following commands in virtual environment (recommended)
 
