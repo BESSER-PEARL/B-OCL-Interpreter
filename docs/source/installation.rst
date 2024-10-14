@@ -32,8 +32,8 @@ To obtain the full code, including examples and tests, you can clone the git rep
 
 .. code-block:: console
 
-    $ git clone https://github.com/BESSER-PEARL/BOCL-Interpreter
-    $ cd BOCL-Interpreter
+    $ git clone https://github.com/BESSER-PEARL/B-OCL-Interpreter
+    $ cd B-OCL-Interpreter
 
 To install the reqs please run the following commands in virtual environment (recommended)
 
