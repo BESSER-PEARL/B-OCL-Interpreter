@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: B-OCL-Interpreter
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Fitash
+    family-names: UL HAQ
+    email: fitash.ulhaq@list.lu
+    affiliation: Luxembourg Institute of Science and Technology
+    orcid: 'https://orcid.org/0000-0003-2253-9085'
+  - given-names: Jordi
+    family-names: Cabot
+    email: jordi.cabot@list.lu
+    affiliation: Luxembourg Institute of Science and Technology
+    orcid: 'https://orcid.org/0000-0003-2418-2489'
+repository-code: 'https://github.com/BESSER-PEARL/B-OCL-Interpreter'
+abstract: >-
+  B-OCL is a tool designed to parse and evaluate the OCL
+  constraints designed on BESSER models. It is a python
+  based implementation, that utilises parser and listener
+  generated with the ANTLR4 grammer. 
+keywords:
+  - Object Constraint Language
+  - OCL
+  - OCL interpreter
+  - OCL parser
+  - OCL evaluator
+license: MIT
