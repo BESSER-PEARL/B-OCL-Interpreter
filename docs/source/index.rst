@@ -34,6 +34,9 @@ Figure below show the workflow for B-OCL Interpreter. For more details on defini
     Kindly note that with boolean attribute the expected value (True/False) much be added in the constraint. B-OCL does not support default value (i.e., True) for boolean attributes.
     Also note that for LoopExpressions it is important to mention the type of iterator.
 
+.. note::
+   B-OCL-Interpreter is compatible with VScode. It can be easily installed on VSCode terminal
+
 
 Contents
 --------

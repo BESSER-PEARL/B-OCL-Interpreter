@@ -24,7 +24,8 @@ Stable version of B-OCL interpreter can be installed via
 
     $ pip install bocl
 
-
+.. note::
+   B-OCL-Interpreter is compatible with VScode. It can be easily installed on VSCode terminal
 
 Building From Source
 --------------------
