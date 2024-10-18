@@ -35,7 +35,7 @@ Figure below show the workflow for B-OCL Interpreter. For more details on defini
     Also note that for LoopExpressions it is important to mention the type of iterator.
 
 .. note::
-   B-OCL-Interpreter is compatible with VScode. It can be easily installed on VSCode terminal
+   B-OCL-Interpreter is compatible with VScode. It can be easily installed using VSCode terminal
 
 
 Contents
