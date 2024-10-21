@@ -35,4 +35,4 @@ Contact
 
 You can reach us at: info@besser-pearl.org
 
-Website: https://besser-pearl.github.io/teampage/
+Website: https://besser-pearl.github.io/website/
