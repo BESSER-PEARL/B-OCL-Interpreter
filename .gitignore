@@ -26,3 +26,5 @@ besser/BUML/notations/ocl/__init__.py
 test/ocl_interpreter_test_researcher_local.py
 bocl.egg-info/PKG-INFO
 /bocl.egg-info
+b_ocl.egg-info/dependency_links.txt
+/b_ocl.egg-info

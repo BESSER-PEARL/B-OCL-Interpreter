@@ -104,53 +104,53 @@ library_model : DomainModel = DomainModel(name="Library model", types={library, 
 
 
 #########################################
-#   Library - object model definition   #
+#   Library -  object model definition   #
 #########################################
 
 
-# Library object attributes
+# Library  object attributes
 library_obj_name: AttributeLink = AttributeLink(attribute=library_name, value=DataValue(classifier=t_str, value="Library test"))
 library_obj_address: AttributeLink = AttributeLink(attribute=address, value=DataValue(classifier=t_str, value="street 123"))
-# Library object
+# Library  object
 library_obj: Object = Object(name="Library Object", classifier=library, slots=[library_obj_name, library_obj_address])
 
-# Book object attributes
+# Book  object attributes
 book_obj_name: AttributeLink = AttributeLink(attribute=title, value=DataValue(classifier=t_str, value="Book tittle"))
 book_obj_pages: AttributeLink = AttributeLink(attribute=pages, value=DataValue(classifier=t_int, value=100))
 book_obj_release: AttributeLink = AttributeLink(attribute=release, value=DataValue(classifier=t_date, value=datetime.datetime(2020, 3, 15)))
-# Book object
+# Book  object
 book_obj: Object = Object(name="Book Object", classifier=book, slots=[book_obj_name, book_obj_pages])
 
-# Book_2 object attributes
+# Book_2  object attributes
 
 book_obj_name_2: AttributeLink = AttributeLink(attribute=title, value=DataValue(classifier=t_str, value="Book tittle_2"))
 book_obj_pages_2: AttributeLink = AttributeLink(attribute=pages, value=DataValue(classifier=t_int, value=400))
 book_obj_release_2: AttributeLink = AttributeLink(attribute=release, value=DataValue(classifier=t_date, value=datetime.datetime(2024, 3, 15)))
-# Book object
+# Book  object
 book_obj_2: Object = Object(name="Book 2 Object", classifier=book, slots=[book_obj_name_2, book_obj_pages_2])
 
-# Author object attributes
+# Author  object attributes
 author_obj_name: AttributeLink = AttributeLink(attribute=author_name, value=DataValue(classifier=t_str, value="John Doe"))
 author_obj_email: AttributeLink = AttributeLink(attribute=email, value=DataValue(classifier=t_str, value="john@doe.com"))
-# Author object
+# Author  object
 author_obj: Object = Object(name="Author Object", classifier=author, slots=[author_obj_name, author_obj_email])
 
-# Book object and Author object link
+# Book  object and Author  object link
 book_link_end1: LinkEnd = LinkEnd(name="book_end1", association_end=publishes, object=book_obj)
 author_link_end: LinkEnd = LinkEnd(name="author_end", association_end=writed_by, object=author_obj)
 author_book_link: Link = Link(name="author_book_link", association=book_author_association, connections=[book_link_end1,author_link_end])
 
-# Book Library and Book object link
+# Book Library and Book  object link
 book_link_end2: LinkEnd = LinkEnd(name="book_end2", association_end=has, object=book_obj)
 library_link_end: LinkEnd = LinkEnd(name="library_end", association_end=located_in, object=library_obj)
 library_book_link: Link = Link(name="library_book_link", association=book_author_association, connections=[book_link_end2,library_link_end])
 
-# Book object and Author object link
+# Book  object and Author  object link
 book_link_end2: LinkEnd = LinkEnd(name="book_end3", association_end=publishes, object=book_obj_2)
 author_link_end2: LinkEnd = LinkEnd(name="author_end2", association_end=writed_by, object=author_obj)
 author_book_link2: Link = Link(name="author_book_link2", association=book_author_association, connections=[book_link_end2,author_link_end2])
 
-# Book Library and Book object link
+# Book Library and Book  object link
 book_link_end3: LinkEnd = LinkEnd(name="book_end4", association_end=has, object=book_obj_2)
 library_link_end3: LinkEnd = LinkEnd(name="library_end3", association_end=located_in, object=library_obj)
 library_book_link3: Link = Link(name="library_book_link3", association=book_author_association, connections=[book_link_end3,library_link_end3])

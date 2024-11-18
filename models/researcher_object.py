@@ -72,33 +72,33 @@ domain_model: DomainModel = DomainModel(name="my_model", types={paper, researche
 #          Object model           #
 ###################################
 
-# paper object
+# paper  object
 paper_name: AttributeLink = AttributeLink(value=DataValue(value="besser lowcode platform", classifier=None), attribute=tittle)
 paper_words: AttributeLink = AttributeLink(value=DataValue(value=5000, classifier=None), attribute=wordCount)
 paper_student_paper: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=studentPaper)
 paper_obj: Object = Object(name="besser paper", classifier=paper, slots=[paper_name, paper_words, paper_student_paper])
 
-# researcher 1 object
+# researcher 1  object
 r1_name: AttributeLink = AttributeLink(value=DataValue(value="Marc", classifier=None), attribute=name)
 r1_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
 researcher_1: Object = Object(name="Marc researcher", classifier=researcher, slots=[r1_name, r1_is_student])
 
-# researcher 2 object
+# researcher 2  object
 r2_name: AttributeLink = AttributeLink(value=DataValue(value="James", classifier=None), attribute=name)
 r2_is_student: AttributeLink = AttributeLink(value=DataValue(value=True, classifier=None), attribute=isStudent)
 researcher_2: Object = Object(name="James researcher", classifier=researcher, slots=[r2_name, r2_is_student])
 
-# researcher 3 object
+# researcher 3  object
 r3_name: AttributeLink = AttributeLink(value=DataValue(value="Adam", classifier=None), attribute=name)
 r3_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
 researcher_3: Object = Object(name="Adam researcher", classifier=researcher, slots=[r3_name, r3_is_student])
 
-# researcher 4 object
+# researcher 4  object
 r4_name: AttributeLink = AttributeLink(value=DataValue(value="Lola", classifier=None), attribute=name)
 r4_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
 researcher_4: Object = Object(name="Lola researcher", classifier=researcher, slots=[r4_name, r4_is_student])
 
-# researcher 5 object
+# researcher 5  object
 r5_name: AttributeLink = AttributeLink(value=DataValue(value="Sarah", classifier=None), attribute=name)
 r5_is_student: AttributeLink = AttributeLink(value=DataValue(value=False, classifier=None), attribute=isStudent)
 researcher_5: Object = Object(name="Sarah researcher", classifier=researcher, slots=[r5_name, r5_is_student])
@@ -131,6 +131,6 @@ reviews_3: Link = Link(name="writes", association=writes, connections=[
 
 
 
-# object model
+#  object model
 object_model: ObjectModel = ObjectModel(name="Object_model", instances={paper_obj, researcher_1, researcher_2, researcher_3, researcher_4, researcher_5},
                                         links={writes_1, writes_2, reviews_1, reviews_2, reviews_3})
