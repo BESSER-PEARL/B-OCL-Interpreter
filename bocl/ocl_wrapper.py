@@ -4,7 +4,7 @@ from besser.BUML.notations.ocl.BOCLLexer import BOCLLexer
 from besser.BUML.notations.ocl.BOCLParser import BOCLParser
 from besser.BUML.notations.ocl.BOCLListener import BOCLListener
 from besser.BUML.notations.ocl.RootHandler import Root_Handler
-from bocl.Evaluator import Evaluator
+from bocl.evaluator import Evaluator
 
 class OCLWrapper:
     """The OCLWrapper class is the wrapper around the evaluator

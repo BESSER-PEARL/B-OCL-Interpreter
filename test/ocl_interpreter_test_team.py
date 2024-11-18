@@ -1,5 +1,5 @@
 from models.team_player_object import team_player_model as domain_model,object_model
-from bocl.OCLWrapper import OCLWrapper
+from bocl.ocl_wrapper import OCLWrapper
 
 if __name__ == "__main__":
     wrapper = OCLWrapper(domain_model, object_model)

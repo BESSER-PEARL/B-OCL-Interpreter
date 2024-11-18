@@ -1,5 +1,5 @@
 from models.researcher_object import domain_model,object_model
-from bocl.OCLWrapper import OCLWrapper
+from bocl.ocl_wrapper import OCLWrapper
 
 def test_1():
     wrapper = OCLWrapper(domain_model, object_model)
