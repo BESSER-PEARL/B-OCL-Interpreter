@@ -1,0 +1,7 @@
+Version 0.1.0
+=============
+
+Release Notes
+------------
+* Refactored Code
+* Made compatible with new naming convention from BESSER
