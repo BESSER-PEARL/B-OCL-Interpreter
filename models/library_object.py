@@ -78,28 +78,32 @@ constraintNameOCLIsTypeOfInt: Constraint = Constraint(name ="BookIsTypeOfInt", c
 
 constraintNameOCLIsTypeOfIntFalse: Constraint = Constraint(name ="BookIsTypeOfIntFalse", context=book, expression="context Book inv inv3: self.pages.oclIsTypeOf(String)", language="OCL")
 constraintifElseSize: Constraint = Constraint(name ="constraintifElseSize", context=library, expression="context Library inv inv3: if self.name <> 'NI' then self.has->exists( i_book : Book | i_book.pages <= 110 )->size()<3 else self.has->forAll(b:Book|b.pages>0) endif", language="OCL")
+constraintDate: Constraint = Constraint(name ="constraintDate", context=book, expression="context Book inv inv3: self.release < Date::today().addDays(10)", language="OCL")
 
+constraintLibraryReject: Constraint = Constraint(name = "LibaryReject",context=library,
+expression="context Library inv inv3: self.has->reject(i_book : Book | i_book.pages <= 110)"
+           "->size()>0",language="OCL")
 
 # Domain model definition
 library_model : DomainModel = DomainModel(name="Library model", types={library, book, author}, 
                                           associations={lib_book_association, book_author_association},
                                           constraints={
-                                              constraintBookPageNumber,
-                                                       # constraintTitleIncorrect,
-                                                       constraintPageNumber,
-                                                       constraintTitleCorrect,
-                                                       constraintLibraryExists,
-                                                       constraintLibrarySize,
-                                                       constraintLibraryCollect,
-                                                       constraintLibraryIf,
-                                                       constraintLibraryElse,
+                                          constraintDate,
+                                          constraintLibraryReject,
+                                            constraintBookPageNumber,
+                                            # constraintTitleIncorrect,
+                                            constraintPageNumber,
+                                            constraintTitleCorrect,
+                                            constraintLibraryExists,
+                                            constraintLibrarySize,
+                                            constraintLibraryCollect,
+                                            constraintLibraryIf,
+                                            constraintLibraryElse,
                                                        # constraintLibraryElseFalse,
-                                                       constraintNameOCLIsTypeOf,
-                                                       constraintNameOCLIsTypeOfInt,
-                                                       # constraintNameOCLIsTypeOfIntFalse
+                                            constraintNameOCLIsTypeOf,
+                                            constraintNameOCLIsTypeOfInt,
+                                            # constraintNameOCLIsTypeOfIntFalse
                                           }
-
-                                            # constraints={constraintLibrarySize}
                                           )
 
 
@@ -116,10 +120,10 @@ library_obj: Object = Object(name="Library Object", classifier=library, slots=[l
 
 # Book  object attributes
 book_obj_name: AttributeLink = AttributeLink(attribute=title, value=DataValue(classifier=t_str, value="Book tittle"))
-book_obj_pages: AttributeLink = AttributeLink(attribute=pages, value=DataValue(classifier=t_int, value=100))
+book_obj_pages: AttributeLink = AttributeLink(attribute=pages, value=DataValue(classifier=t_int, value=200))
 book_obj_release: AttributeLink = AttributeLink(attribute=release, value=DataValue(classifier=t_date, value=datetime.datetime(2020, 3, 15)))
 # Book  object
-book_obj: Object = Object(name="Book Object", classifier=book, slots=[book_obj_name, book_obj_pages])
+book_obj: Object = Object(name="Book Object", classifier=book, slots=[book_obj_name, book_obj_pages,book_obj_release])
 
 # Book_2  object attributes
 
@@ -127,7 +131,7 @@ book_obj_name_2: AttributeLink = AttributeLink(attribute=title, value=DataValue(
 book_obj_pages_2: AttributeLink = AttributeLink(attribute=pages, value=DataValue(classifier=t_int, value=400))
 book_obj_release_2: AttributeLink = AttributeLink(attribute=release, value=DataValue(classifier=t_date, value=datetime.datetime(2024, 3, 15)))
 # Book  object
-book_obj_2: Object = Object(name="Book 2 Object", classifier=book, slots=[book_obj_name_2, book_obj_pages_2])
+book_obj_2: Object = Object(name="Book 2 Object", classifier=book, slots=[book_obj_name_2, book_obj_pages_2,book_obj_release_2])
 
 # Author  object attributes
 author_obj_name: AttributeLink = AttributeLink(attribute=author_name, value=DataValue(classifier=t_str, value="John Doe"))

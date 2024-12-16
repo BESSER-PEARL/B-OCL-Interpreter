@@ -40,12 +40,16 @@ constraintPlayerAge: Constraint = Constraint(name = "playerAge",context=player,e
 
 constraintTeamCenter: Constraint = Constraint(name = "teamCenter",context=team,expression="context team inv inv2: self.many -> collect(p:player| p.position = 'center')->size()<3",language="OCL")
 
+constraintTeamOtherPlayers: Constraint = Constraint(name = "teamCenterPlayer",context=team,expression="context team inv inv2: self.many -> select(p:player| p.position = 'center')->size()>0",language="OCL")
+
+
 # Domain model definition
 team_player_model : DomainModel = DomainModel(name="Team-Player model", types={team,player},
                                           associations={team_player_association },
                                           constraints={
                                           constraintPlayerAge,
-                                          constraintTeamCenter
+                                          constraintTeamCenter,
+constraintTeamOtherPlayers,
                                           }
                                           )
 

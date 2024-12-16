@@ -30,6 +30,8 @@ class Evaluator:
             if name == slot.attribute.name:
                 if slot.attribute.type.name == 'str':
                     return '"' + slot.value.value + '"'
+                if slot.attribute.type.name == 'date':
+                    return int(str(slot.value.value.year)+ str(slot.value.value.month) + str(slot.value.value.day))
                 return slot.value.value
         return None
 
@@ -187,6 +189,22 @@ class Evaluator:
                 self.preprocess_logical_exp(expression)
                 if eval(expression[0]) is True:
                     self.all_obj_sat[-1].append(obj)
+    def handle_reject(self, tree, all_objs):
+        """The handle_reject function handles reject construct.
+
+        Args:
+               tree: Tree that is constructed using OCL Parser
+               all_objs: all objects from object model
+        """
+        self.all_obj_sat.append([])
+        for obj in all_objs:
+            expression = [""]
+            if len(tree.get_body) > 0:
+                self.update_logical_exp(tree.get_body[0], expression, obj)
+                self.preprocess_logical_exp(expression)
+                if eval(expression[0]) is False:
+                    self.all_obj_sat[-1].append(obj)
+
 
     def handle_collect(self, tree, all_objs):
         """The handle_collect function handles collect construct.
@@ -231,6 +249,9 @@ class Evaluator:
             self.handle_collect(tree, all_objs)
         elif expression_type == "select":
             self.handle_select(tree, all_objs)
+        elif expression_type == "reject":
+            self.handle_reject(tree, all_objs)
+
 
 
     def get_id(self, slots):
@@ -342,6 +363,17 @@ class Evaluator:
                     logical_exp[0] = logical_exp[0] + '\"' + source_type + '\"' + " =  \"float\""
                 if index > 0 and index < len(tree.arguments) - 1:
                     self.check_and_add(logical_exp, "and")
+    def handle_date_literal_expression(self,date):
+        from datetime import datetime,timedelta
+        now = datetime.now()
+        if "addDays" in str(date):
+            days = str(date).split("addDays")[1].replace(")","").replace("(","")
+            now= now+timedelta(days = int(days))
+
+        if "today" in str(date):
+            date_time = int(now.strftime("%Y%m%d"))
+            return str(date_time)
+
 
     def update_logical_exp(self, tree, logical_exp, obj):
         """The update_logical_exp function updates the logical expression.
@@ -383,6 +415,9 @@ class Evaluator:
                             logical_exp[0] = logical_exp[0] + str(arg.value)
                         elif isinstance(arg, StringLiteralExpression):
                             logical_exp[0] = logical_exp[0] + '"' + str(arg.value) + '"'
+                        elif isinstance(arg, DateLiteralExpression):
+                            logical_exp[0] = logical_exp[0] + self.handle_date_literal_expression(arg)
+
                         else:
                             logical_exp[0] = logical_exp[0] + str(self.get_value(arg.name, obj))
                     else:

@@ -1,0 +1,7 @@
+Version 0.3.0
+=============
+
+Release Notes
+------------
+* added support for DateLiteralExpression
+* added support for Reject construct

@@ -44,3 +44,4 @@ class OCLWrapper:
         evalualor = Evaluator()
 
         return evalualor.evaluate(root_handler, self.om)
+        # return True
