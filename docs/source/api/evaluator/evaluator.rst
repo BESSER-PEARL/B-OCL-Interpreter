@@ -1,7 +1,7 @@
 B-OCL Evaluator
 ================
 
-.. automodule:: bocl.Evaluator
+.. automodule:: bocl.evaluator
    :members:
    :private-members:
    :undoc-members:
