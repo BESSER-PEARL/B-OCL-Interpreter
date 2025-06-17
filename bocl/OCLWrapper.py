@@ -32,7 +32,8 @@ class OCLWrapper:
 
         # self.preprocess(ocl.expression)
         input_stream = InputStream(ocl.expression)
-        root_handler = Root_Handler(ocl,self.dm,self.om)
+        root_handler = Root_Handler(self.dm,self.om)
+        root_handler.set_context(ocl.context)
         lexer = BOCLLexer(input_stream)
         stream = CommonTokenStream(lexer)
         parser = BOCLParser(stream)
@@ -41,7 +42,7 @@ class OCLWrapper:
         walker = ParseTreeWalker()
         walker.walk(listener,tree)
 
-        evalualor = Evaluator()
+        evaluator = Evaluator()
 
-        return evalualor.evaluate(root_handler, self.om)
+        return evaluator.evaluate(root_handler, self.om)
         # return True
