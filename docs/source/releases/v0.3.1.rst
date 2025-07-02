@@ -1,0 +1,12 @@
+Version 0.3.1
+=============
+
+Release Notes
+-------------
+
+Bug Fixes
+~~~~~~~~~~
+* **OCL Context Initialization**: Fixed missing context setup in OCL evaluation process
+  
+  - Added explicit ``root_handler.set_context(ocl.context)`` call in ``OCLWrapper.evaluate()``
+
