@@ -1,4 +1,4 @@
-from models.team_player_object import team_player_model as domain_model,object_model
+from models.team_player_object import domain_model,object_model
 from bocl.OCLWrapper import OCLWrapper
 
 if __name__ == "__main__":
