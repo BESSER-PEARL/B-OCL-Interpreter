@@ -291,7 +291,12 @@ class Evaluator:
             all_objs = self.check_in_obj(obj, tree.source)
             if all_objs is None:
                 all_objs = self.check_in_link_ends(obj, tree.source)
-            logical_exp[0] = logical_exp[0] + str(len(all_objs))
+            if not isinstance(all_objs, list):
+                value = self.get_value(tree.source.name, all_objs)
+                logical_exp[0] = logical_exp[0] + str(len(value))
+            else:
+
+                logical_exp[0] = logical_exp[0] + str(len(all_objs))
             for arg in tree.arguments:
                 if isinstance(arg, (IntegerLiteralExpression, RealLiteralExpression, BooleanLiteralExpression)):
                     logical_exp[0] = logical_exp[0] + str(arg.value)

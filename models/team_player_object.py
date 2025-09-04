@@ -59,13 +59,22 @@ constraint_Team_2_1: Constraint = Constraint(
     expression="context Team inv inv0: self.players-> collect(p:Player| p.position = 'center')->size()>0",
     language="OCL"
 )
+constraint_Team_3_1: Constraint = Constraint(
+    name="constraint_Team_3_1",
+    context=Player,
+    expression="context Player inv inv0: self.name.size()>1",
+    language="OCL"
+)
 
 # Domain Model
 domain_model = DomainModel(
     name="a",
     types={Team, Player},
     associations={team_player},
-    constraints={constraint_Team_0_1, constraint_Player_1_1, constraint_Team_2_1},
+    constraints={
+constraint_Team_3_1
+        #constraint_Team_0_1, constraint_Player_1_1, constraint_Team_2_1
+                 },
     generalizations={}
 )
 
