@@ -493,7 +493,8 @@ class Evaluator:
             exp: logical expression to be evaluated
 
         """
-        exp[0] = exp[0].replace(' = ', ' == ').replace('<>', ' != ')
+        import re
+        exp[0] = re.sub(r'(?<![<>=])\s*=\s*(?![<>=])', ' == ', exp[0]).replace('<>', ' != ')
         if len(exp[0]) > 5:
             if exp[0][-5:] == " and ":
                 exp[0] = exp[0][:-5]
