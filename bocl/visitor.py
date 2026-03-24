@@ -33,7 +33,7 @@ class BOCLVisitorImpl(BOCLVisitor):
             context_class = self.context_class
         if context_class is None:
             return None
-        for attr in context_class.attributes:
+        for attr in context_class.all_attributes():
             if attr.name == name:
                 return attr
         for end in context_class.all_association_ends():
