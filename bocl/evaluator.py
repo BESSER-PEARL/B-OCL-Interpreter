@@ -437,7 +437,7 @@ class Evaluator:
         elif isinstance(arg, DateLiteralExpression):
             logical_exp[0] += self._handle_date_literal(arg)
         elif isinstance(arg, (OperationCallExpression, LoopExp, IfExp)):
-            self.update_logical_exp(arg, obj, logical_exp)
+            self.update_logical_exp(arg, logical_exp, obj)
         else:
             logical_exp[0] += str(arg)
 
