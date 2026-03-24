@@ -1,9 +1,12 @@
 from models.researcher_object import domain_model,object_model
 from bocl.OCLWrapper import OCLWrapper
 
+# Sort constraints by name for deterministic ordering across runs
+constraints = sorted(domain_model.constraints, key=lambda c: c.name)
+
 def test_1():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[0]
+    constraint=constraints[0]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -15,7 +18,7 @@ def test_1():
 
 def test_2():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[1]
+    constraint=constraints[1]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -27,7 +30,7 @@ def test_2():
 
 def test_3():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[2]
+    constraint=constraints[2]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -39,7 +42,7 @@ def test_3():
 
 def test_4():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[3]
+    constraint=constraints[3]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -51,7 +54,7 @@ def test_4():
 
 def test_5():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[4]
+    constraint=constraints[4]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -63,7 +66,7 @@ def test_5():
 
 def test_6():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[5]
+    constraint=constraints[5]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -75,7 +78,7 @@ def test_6():
 
 def test_7():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[6]
+    constraint=constraints[6]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
@@ -87,7 +90,7 @@ def test_7():
 
 def test_8():
     wrapper = OCLWrapper(domain_model, object_model)
-    constraint=list(domain_model.constraints)[7]
+    constraint=constraints[7]
     print("Query: " + str(constraint.expression), end=": ")
     res = None
     try:
