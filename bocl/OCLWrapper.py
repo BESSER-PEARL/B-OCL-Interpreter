@@ -1,48 +1,60 @@
-"""Including imports from BESSER and ANTLR4"""
-from antlr4 import InputStream,CommonTokenStream,ParseTreeWalker
-from besser.BUML.notations.ocl.BOCLLexer import BOCLLexer
-from besser.BUML.notations.ocl.BOCLParser import BOCLParser
-from besser.BUML.notations.ocl.BOCLListener import BOCLListener
-from besser.BUML.notations.ocl.RootHandler import Root_Handler
+"""OCL Wrapper using the new grammar, visitor, and evaluator."""
+from antlr4 import InputStream, CommonTokenStream
+from bocl.grammar.BOCLLexer import BOCLLexer
+from bocl.grammar.BOCLParser import BOCLParser
+from bocl.visitor import BOCLVisitorImpl
 from bocl.evaluator import Evaluator
+from bocl.error_handling import BOCLErrorListener, BOCLSyntaxError
+
 
 class OCLWrapper:
-    """The OCLWrapper class is the wrapper around the evaluator
-    class to prepare the construct needed by evaluator.
+    """Wrapper around the OCL evaluator.
 
     Args:
-        dm: Domain model in BUML
-        om: object model in BUML
-    Attributes:
-        dm: Domain model in BUML
-        om: object model in BUML
+        dm: Domain model (BUML).
+        om: Object model (BUML).
     """
-    def __init__(self,dm,om):
+
+    def __init__(self, dm, om):
         self.dm = dm
         self.om = om
-    def __str__(self):
-        return str(self.dm)+ str(self.om)
 
+    def evaluate(self, ocl):
+        """Evaluate an OCL constraint.
 
-    def evaluate(self,ocl):
-        """the evaluate function takes the OCL constraint and evaluate using evaluator
         Args:
-            ocl: Object of OCL class that constaints the OCL expression and context class
-        """
+            ocl: Constraint object with .expression and .context attributes.
 
-        # self.preprocess(ocl.expression)
+        Returns:
+            Boolean result of the constraint evaluation.
+
+        Raises:
+            BOCLSyntaxError: If the OCL expression has syntax errors.
+        """
         input_stream = InputStream(ocl.expression)
-        root_handler = Root_Handler(self.dm,self.om)
-        root_handler.set_context(ocl.context)
+
+        # Lexer
         lexer = BOCLLexer(input_stream)
+        lexer.removeErrorListeners()
+        error_listener = BOCLErrorListener()
+        lexer.addErrorListener(error_listener)
+
+        # Parser
         stream = CommonTokenStream(lexer)
         parser = BOCLParser(stream)
+        parser.removeErrorListeners()
+        parser.addErrorListener(error_listener)
+
         tree = parser.oclFile()
-        listener = BOCLListener(root_handler)
-        walker = ParseTreeWalker()
-        walker.walk(listener,tree)
 
+        if error_listener.has_errors():
+            raise BOCLSyntaxError(error_listener.errors)
+
+        # Visitor builds the AST
+        visitor = BOCLVisitorImpl(self.dm, self.om, ocl.context)
+        ast_root = visitor.visit(tree)
+
+        # Evaluator processes the AST
         evaluator = Evaluator()
-
-        return evaluator.evaluate(root_handler, self.om)
-        # return True
+        context_name = visitor.context_name
+        return evaluator.evaluate(ast_root, self.om, context_name)

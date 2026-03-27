@@ -8,7 +8,7 @@ We have tested B-OCL with python 3.9+. We recommend creating a virtual environme
 
 Dependencies
 ************
-B-OCL depends on BESSER for parsing the OCL constraints and providing a concrete syntax tree (CST) to evaluation. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
+B-OCL includes its own ANTLR4-based grammar and parser for OCL constraints. It depends on BESSER only for the OCL metamodel types and structural model definitions. The latest stable version of BESSER is available in the Python Package Index (PyPi) and can be installed using
 
 .. code-block:: console
 

@@ -97,7 +97,7 @@ constraint_Paper_7_1: Constraint = Constraint(
 
 # Domain Model
 domain_model = DomainModel(
-    name="",
+    name="researcher_model",
     types={Paper, Researcher},
     associations={writes, reviews},
     constraints={constraint_Researcher_0_1, constraint_Paper_1_1, constraint_Paper_2_1, constraint_Paper_3_1, constraint_Paper_4_1, constraint_Paper_5_1, constraint_Researcher_6_1, constraint_Paper_7_1},
@@ -116,7 +116,7 @@ researcher_2_obj.submission = paper_1_obj
 
 # Object Model instance
 object_model: ObjectModel = ObjectModel(
-    name="",
+    name="Researcher_Object_Diagram",
     objects={paper_1_obj, researcher_1_obj, researcher_2_obj}
 )
 
