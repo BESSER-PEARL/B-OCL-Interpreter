@@ -1,4 +1,6 @@
 """Evaluator for OCL constraints using the new visitor-based AST."""
+# import sys
+# sys.path.append("D:\\Github\\B-OCL-Interpreter\\BESSER\\BESSER\\besser")
 from besser.BUML.metamodel.ocl.ocl import (
     OperationCallExpression, LoopExp, IfExp, VariableExp,
     IntegerLiteralExpression, RealLiteralExpression,
