@@ -11,9 +11,9 @@ Tests verify that all 6 issues identified in the issue are fixed:
 import time
 import pytest
 from antlr4 import InputStream, CommonTokenStream
-from bocl.grammar.BOCLLexer import BOCLLexer
-from bocl.grammar.BOCLParser import BOCLParser
-from bocl.error_handling import BOCLErrorListener, BOCLSyntaxError
+from besser.BUML.notations.ocl.BOCLLexer import BOCLLexer
+from besser.BUML.notations.ocl.BOCLParser import BOCLParser
+from besser.BUML.notations.ocl.error_handling import BOCLErrorListener, BOCLSyntaxError
 from bocl.OCLWrapper import OCLWrapper
 from models.library_object import domain_model, object_model
 
@@ -203,27 +203,15 @@ class TestPrecedenceAndEvaluation:
 # Issue #6: Grammar lives in this repo
 # ---------------------------------------------------------------
 class TestGrammarLocation:
-    """BOCL.g4 and generated files must live in bocl/grammar/."""
+    """BOCL.g4 and generated files must live in besser/BUML/notations/ocl/."""
 
-    def test_grammar_file_exists(self):
-        import os
-        grammar_path = os.path.join(os.path.dirname(__file__), "..", "bocl", "grammar", "BOCL.g4")
-        assert os.path.isfile(grammar_path)
-
-    def test_generated_files_exist(self):
-        import os
-        base = os.path.join(os.path.dirname(__file__), "..", "bocl", "grammar")
-        for fname in ("BOCLLexer.py", "BOCLParser.py", "BOCLVisitor.py"):
-            assert os.path.isfile(os.path.join(base, fname)), f"Missing {fname}"
-
-    def test_imports_use_local_grammar(self):
-        """OCLWrapper must import from bocl.grammar, not besser."""
+    def test_grammar_imports_from_besser(self):
+        """OCLWrapper must import grammar from besser, not bocl.grammar."""
         import inspect
         from bocl import OCLWrapper as module
         source = inspect.getsource(module)
-        assert "bocl.grammar.BOCLLexer" in source
-        assert "bocl.grammar.BOCLParser" in source
-        assert "besser.BUML.notations.ocl" not in source
+        assert "besser.BUML.notations.ocl.BOCLLexer" in source
+        assert "besser.BUML.notations.ocl.BOCLParser" in source
 
 
 # ---------------------------------------------------------------

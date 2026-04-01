@@ -1,10 +1,10 @@
 """OCL Wrapper using the new grammar, visitor, and evaluator."""
 from antlr4 import InputStream, CommonTokenStream
-from bocl.grammar.BOCLLexer import BOCLLexer
-from bocl.grammar.BOCLParser import BOCLParser
-from bocl.visitor import BOCLVisitorImpl
+from besser.BUML.notations.ocl.BOCLLexer import BOCLLexer
+from besser.BUML.notations.ocl.BOCLParser import BOCLParser
+from besser.BUML.notations.ocl.visitor import BOCLVisitorImpl
 from bocl.evaluator import Evaluator
-from bocl.error_handling import BOCLErrorListener, BOCLSyntaxError
+from besser.BUML.notations.ocl.error_handling import BOCLErrorListener, BOCLSyntaxError
 
 
 class OCLWrapper:
