@@ -1,8 +1,9 @@
 Welcome to BESSER's Object Constraint Language (B-OCL) interpreter Documentation
 =================================
 
-**B-OCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
-It is a python based implementation, that utilises parser and listener generated with the ANTLR4 grammer.
+**B-OCL** is a tool designed to parse and evaluate the OCL constraints defined on **BESSER** models.
+It is a Python-based implementation built on an ANTLR4 grammar and a visitor-driven evaluator
+that walks the resulting AST to check constraints against object models.
 
 **BESSER** is a `low-modeling <https://modeling-languages.com/welcome-to-the-low-modeling-revolution/>`_
 `low-code <https://modeling-languages.com/low-code-vs-model-driven/>`_ open-source platform built on top 

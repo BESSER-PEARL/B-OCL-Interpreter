@@ -1,0 +1,24 @@
+Version 1.0.0
+=============
+
+Release Notes
+-------------
+
+New Grammar & Visitor
+~~~~~~~~~~~~~~~~~~~~~
+* Reimplemented the B-OCL grammar and switched to a visitor-based evaluator
+* Added ``size`` keyword support for strings
+* Object models updated to align with the latest BESSER metamodel
+
+Bug Fixes
+~~~~~~~~~
+* Resolved inherited attributes in the visitor (port of BESSER PR #464)
+* Fixed argument order in ``_emit_value()`` for nested expressions
+* Clarified domain and object model names in ``researcher_object.py`` and related tests
+* Grammar regression tests added for issue #9
+
+Integration with BESSER
+~~~~~~~~~~~~~~~~~~~~~~~
+* B-OCL sources have been moved into the main BESSER repository
+* Import paths updated to use the ``besser.BUML`` notation
+* Installation documentation updated to reflect the self-contained parser

@@ -19,6 +19,8 @@ release = config.get('metadata', 'version')
 year = datetime.date.today().year
 if year > 2023:
     year = '2023 - ' + str(year)
+else:
+    year = str(year)
 copyright = f'{year} {author}. All Rights Reserved'
 
 # -- General configuration
@@ -83,4 +85,4 @@ def linkcode_resolve(domain, info):
         return None
     start, end = lines[1], lines[1] + len(lines[0]) - 1
     filename = info['module'].replace('.', '/')
-    return f"https://github.com/BESSER-PEARL/b-ocl-Interpreter/blob/master/{filename}.py#L{start}-L{end}"
+    return f"https://github.com/BESSER-PEARL/B-OCL-Interpreter/blob/main/{filename}.py#L{start}-L{end}"
