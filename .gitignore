@@ -28,3 +28,4 @@ bocl.egg-info/PKG-INFO
 /bocl.egg-info
 b_ocl.egg-info/dependency_links.txt
 /b_ocl.egg-info
+venv/
