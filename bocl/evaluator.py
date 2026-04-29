@@ -5,7 +5,7 @@ from besser.BUML.metamodel.ocl.ocl import (
     OperationCallExpression, LoopExp, IfExp, VariableExp,
     IntegerLiteralExpression, RealLiteralExpression,
     BooleanLiteralExpression, StringLiteralExpression,
-    DateLiteralExpression, InfixOperator, TypeExp,
+    DateLiteralExpression, InfixOperator, PropertyCallExpression, TypeExp,
 )
 from besser.BUML.metamodel.structural.structural import Property
 import re
@@ -84,6 +84,48 @@ class Evaluator:
                 if connection.association_end.name == source.name:
                     to_ret.append(connection.object)
         return to_ret
+
+    def _resolve_chain(self, expr, obj):
+        """Walk a navigation chain and return the final scalar or object(s).
+
+        Handles ``VariableExp`` (``self`` / iterator), ``Property`` (attribute
+        slot or association end on `obj`), and ``PropertyCallExpression``
+        (recursively resolves the source, then reads the leaf property on the
+        resulting object). Returns:
+          - a scalar (already-quoted string for str types) for attribute reads,
+          - a single object or a list of objects for association traversal,
+          - ``None`` when nothing resolves.
+        """
+        if isinstance(expr, VariableExp):
+            return obj
+        if isinstance(expr, Property):
+            value = self.get_value(expr.name, obj)
+            if value is not None:
+                return value
+            connected = self.check_in_link_ends(obj, expr)
+            if connected:
+                return connected[0] if len(connected) == 1 else connected
+            return None
+        if isinstance(expr, PropertyCallExpression):
+            source_result = self._resolve_chain(expr.source, obj)
+            if source_result is None:
+                return None
+            if isinstance(source_result, list):
+                if not source_result:
+                    return None
+                source_obj = source_result[0]
+            else:
+                source_obj = source_result
+            if not hasattr(source_obj, "slots"):
+                return None
+            value = self.get_value(expr.property.name, source_obj)
+            if value is not None:
+                return value
+            connected = self.check_in_link_ends(source_obj, expr.property)
+            if connected:
+                return connected[0] if len(connected) == 1 else connected
+            return None
+        return None
 
     def get_valid_objects(self, context_name, objs):
         return [obj for obj in objs.instances if obj.classifier.name == context_name]
@@ -208,6 +250,13 @@ class Evaluator:
                 logical_exp[0] += str(value)
             return
 
+        # --- PropertyCallExpression: chained navigation (self.x.y...) ---
+        if isinstance(tree, PropertyCallExpression):
+            value = self._resolve_chain(tree, obj)
+            if value is not None and not isinstance(value, list):
+                logical_exp[0] += str(value)
+            return
+
         # --- Literal expressions ---
         if isinstance(tree, IntegerLiteralExpression):
             logical_exp[0] += str(tree.value)
@@ -245,6 +294,10 @@ class Evaluator:
             elif isinstance(arg, Property):
                 value = self.get_value(arg.name, obj)
                 if value is not None:
+                    logical_exp[0] += str(value)
+            elif isinstance(arg, PropertyCallExpression):
+                value = self._resolve_chain(arg, obj)
+                if value is not None and not isinstance(value, list):
                     logical_exp[0] += str(value)
             elif isinstance(arg, IntegerLiteralExpression):
                 logical_exp[0] += str(arg.value)

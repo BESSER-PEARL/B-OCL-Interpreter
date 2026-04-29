@@ -7,3 +7,4 @@ Release Notes
    releases/v0.3.0
    releases/v0.3.1
    releases/v1.0.0
+   releases/v1.0.1

@@ -1,0 +1,23 @@
+Version 1.0.1
+=============
+
+Release Notes
+-------------
+
+Bug Fixes
+~~~~~~~~~
+* Evaluator now supports chained navigation across associations
+  (e.g. ``self.dept.maxsalary``). Previously, multi-step property access
+  through an association end produced no value during evaluation because
+  the AST emitted by the visitor was not walked through link traversal.
+* Added handling for ``PropertyCallExpression`` nodes in
+  ``Evaluator.update_logical_exp`` and ``Evaluator._handle_operation``,
+  via a new ``_resolve_chain`` helper that traverses link ends for
+  association-end properties and reads attribute slots at the leaf.
+
+Compatibility
+~~~~~~~~~~~~~
+* Requires the matching visitor change in BESSER, which emits
+  ``PropertyCallExpression`` chains for multi-step navigation while
+  leaving single-step ``self.x`` access as a bare ``Property`` for
+  backward compatibility.
