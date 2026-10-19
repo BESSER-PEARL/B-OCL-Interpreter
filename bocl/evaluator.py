@@ -220,6 +220,19 @@ class Evaluator:
                 self._handle_size(tree, obj, logical_exp)
                 return
 
+            # isEmpty / notEmpty: compare the element count with zero
+            if name in ("IsEmpty", "NotEmpty"):
+                count = [""]
+                self._handle_size(tree, obj, count)
+                comparison = "==" if name == "IsEmpty" else ">"
+                logical_exp[0] += f"({count[0]} {comparison} 0)"
+                return
+
+            # Sum of a collect(): X->collect(v | expr)->sum()
+            if name == "Sum":
+                logical_exp[0] += str(self._sum(tree.source, obj))
+                return
+
             # Includes / Excludes
             if name == "INCLUDES":
                 self._handle_includes(tree, obj, logical_exp)
@@ -351,6 +364,18 @@ class Evaluator:
         else:
             logical_exp[0] += "0"
 
+    def _sum(self, source, obj):
+        """Sum the values a ``collect`` yields for each element of its source."""
+        if not (isinstance(source, LoopExp) and source.name == "collect" and source.get_body):
+            raise NotImplementedError("sum() is only supported on the result of collect()")
+        total = 0
+        for o in self._resolve_source_objects(source.source, obj):
+            expression = [""]
+            self.update_logical_exp(source.get_body[0], expression, o)
+            self._preprocess(expression)
+            total += eval(expression[0])
+        return total
+
     def _handle_filter_loop(self, tree, all_objs):
         """Handle collect/select/reject for size() counting."""
         self.all_obj_sat.append([])
@@ -428,6 +453,10 @@ class Evaluator:
         expression_type = tree.name
 
         if expression_type == "forAll":
+            if not all_objs:
+                # A condition over no elements holds (OCL 2.4 §11.9.1).
+                logical_exp[0] += " True "
+                return
             logical_exp[0] += " ("
             for i, o in enumerate(all_objs):
                 if len(tree.get_body) > 0:
