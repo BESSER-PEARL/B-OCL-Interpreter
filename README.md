@@ -1,5 +1,7 @@
 # BESSER Object Constraint Language Interpreter
 
+> ⭐ **Part of [BESSER](https://github.com/BESSER-PEARL/BESSER)**, the open-source low-code platform that turns models into working apps. If this project is useful to you, please [star the main repo](https://github.com/BESSER-PEARL/BESSER) too.
+
 **B-OCL** is a tool designed to parse and evaluate the OCL constraints designed on **BESSER** models.
 It is a python based implementation, that utilises parser and listener generated with the ANTLR4 grammer.
 
