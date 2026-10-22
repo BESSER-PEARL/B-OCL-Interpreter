@@ -34,9 +34,9 @@ To obtain the full code, including examples and tests, you can clone the git rep
     $ git clone https://github.com/BESSER-PEARL/b-ocl-Interpreter
     $ cd b-ocl-Interpreter
 
-To install the reqs please run the following commands in virtual environment (recommended)
+To install the package with its test dependencies, run the following in a virtual environment (recommended)
 
-    $ pip install -r requirements.txt
+    $ pip install -e ".[test]"
 
 ## Contributing
 
